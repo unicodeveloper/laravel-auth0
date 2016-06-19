@@ -11,6 +11,16 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', 'ListController@show');
+
+Route::get('/auth0/callback', function() {
+   dd(Auth0::getUser(), Auth::user());
+
+
+});
+
+Route::get('/logout', function () {
+   Auth::logout();
+
+   return redirect('/');
 });
