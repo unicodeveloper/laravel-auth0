@@ -14,9 +14,7 @@
 Route::get('/', 'ListController@show');
 
 Route::get('/auth0/callback', function() {
-   dd(Auth0::getUser(), Auth::user());
-
-
+   dd(Auth0::getUser());
 });
 
 Route::get('/logout', function () {
@@ -24,3 +22,13 @@ Route::get('/logout', function () {
 
    return redirect('/');
 });
+
+Route::auth();
+
+Route::get('/got', [
+  'middleware' => ['auth'],
+  'uses' => function () {
+   echo "You are allowed to view this page!";
+}]);
+
+Route::get('/home', 'HomeController@index');
